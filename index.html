@@ -8,15 +8,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- 1. Add the AlertWise SDK -->
-    <script src="https://cdn.alertwise.net/alertwise/integrate/alert-wise.js" async></script>
-    <script type="text/javascript">
-        alertwise = window.Alertwise || [];
-        alertwise.push(["init", {
-            appId: "67a5e9d39f91a46a231bb738",
-            alertwiseApiUrl: "http://localhost:8080",
-            applicationServerPublicKey: "BBVqYFT5f4lIGhnY033h1a9udY2VoPJICnbwE7ElAlaBNr7Uom2X3_Xr5V9vXlle2bIViWbgd8wPezHsMdITKRY"
-        }]);
-    </script>
+    <script src="https://cdn.alertwise.net/68c2e6a45f452e0690267179/integrate/alert-wise.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
     <style>
         body {
@@ -31,13 +23,20 @@
             font-family: monospace;
             font-size: 0.875rem;
         }
+        .code-viewer {
+            border-top: 1px solid rgba(0,0,0,.175);
+            border-bottom-left-radius: var(--bs-card-border-radius);
+            border-bottom-right-radius: var(--bs-card-border-radius);
+            margin: 0;
+            padding: 1rem;
+        }
     </style>
 </head>
 <body>
 <div class="container py-5">
     <header class="text-center mb-5">
         <h1><a href="/" class="text-dark text-decoration-none">AlertWise Web SDK Sample Demo</a></h1>
-        <p class="lead">A demonstration of the AlertWise Web SDK features using Bootstrap 5.</p>
+        <p class="lead">A demonstration of the AlertWise Web SDK features with code examples.</p>
     </header>
 
     <div class="row g-4">
@@ -65,6 +64,23 @@
                         <button class="btn btn-danger" onclick="alertwise.unsubscribe()">Unsubscribe</button>
                     </div>
                 </div>
+                <div class="card-footer bg-light">
+                     <a class="icon-link" data-bs-toggle="collapse" href="#subscriptionCodeCollapse" role="button" aria-expanded="false" aria-controls="subscriptionCodeCollapse">
+                        <i class="bi bi-code-slash"></i>
+                        View Code
+                    </a>
+                </div>
+                <div class="collapse" id="subscriptionCodeCollapse">
+                    <pre class="code-viewer bg-dark text-light mb-0"><code>// Subscribe
+alertwise.push(['subscribe']);
+
+// Unsubscribe
+alertwise.push(['unsubscribe']);
+
+// Get Subscriber ID
+alertwise.getSubscriberId().then(id => console.log(id));
+</code></pre>
+                </div>
             </div>
 
             <div class="card mb-4">
@@ -84,6 +100,22 @@
                         </button>
                     </div>
                 </div>
+                <div class="card-footer bg-light">
+                     <a class="icon-link" data-bs-toggle="collapse" href="#segmentCodeCollapse" role="button" aria-expanded="false" aria-controls="segmentCodeCollapse">
+                        <i class="bi bi-code-slash"></i>
+                        View Code
+                    </a>
+                </div>
+                <div class="collapse" id="segmentCodeCollapse">
+                    <pre class="code-viewer bg-dark text-light mb-0"><code>// Add to Segment
+const segmentId = 'new-users';
+alertwise.addSegment(segmentId);
+
+// Remove from Segment
+const segmentId = 'new-users';
+alertwise.removeSegment(segmentId);
+</code></pre>
+                </div>
             </div>
 
             <div class="card mb-4">
@@ -101,6 +133,23 @@
                         <button type="button" class="btn btn-outline-success" onclick="addTag()">Add/Update Tag</button>
                         <button type="button" class="btn btn-outline-warning" onclick="removeTag()">Remove Tag</button>
                     </div>
+                </div>
+                <div class="card-footer bg-light">
+                     <a class="icon-link" data-bs-toggle="collapse" href="#tagCodeCollapse" role="button" aria-expanded="false" aria-controls="tagCodeCollapse">
+                        <i class="bi bi-code-slash"></i>
+                        View Code
+                    </a>
+                </div>
+                 <div class="collapse" id="tagCodeCollapse">
+                    <pre class="code-viewer bg-dark text-light mb-0"><code>// Add/Update a Tag
+alertwise.addTag('plan', 'premium');
+
+// Add/Update multiple Tags
+alertwise.addTag({ 'level': 5, 'is_active': true });
+
+// Remove a Tag
+alertwise.removeTag('plan');
+</code></pre>
                 </div>
             </div>
 
@@ -123,6 +172,23 @@
                         </button>
                     </div>
                 </div>
+                <div class="card-footer bg-light">
+                     <a class="icon-link" data-bs-toggle="collapse" href="#propertyCodeCollapse" role="button" aria-expanded="false" aria-controls="propertyCodeCollapse">
+                        <i class="bi bi-code-slash"></i>
+                        View Code
+                    </a>
+                </div>
+                <div class="collapse" id="propertyCodeCollapse">
+                    <pre class="code-viewer bg-dark text-light mb-0"><code>// Set a Property
+alertwise.setSubscriberProperty('firstName', 'John');
+
+// Set multiple Properties
+alertwise.setSubscriberProperty({ 'lastName': 'Doe', 'email': 'john.doe@example.com' });
+
+// Remove a Property
+alertwise.removeSubscriberProperty('firstName');
+</code></pre>
+                </div>
             </div>
         </div>
 
@@ -144,8 +210,8 @@
     // 3. Initialize the SDK
     window.alertwise = window.alertwise || [];
     alertwise.push(['init', {
-        // IMPORTANT: Replace with your actual App ID
-        appId: 'YOUR_APP_ID'
+        appId: '68c2e6a45f452e0690267179',
+        applicationServerPublicKey: "BLzjfpWQXfBbE3dpWwVQShpMbTGoyFDGg1JNv3oowUKyan0_F7oi4geEmMjmXk_uTtZu9sDJQtWTQZGKi-Q0FsA"
     }]);
 
     const permissionStatusEl = document.getElementById('permissionStatus');
