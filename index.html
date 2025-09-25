@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AlertWise Web SDK Sample Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- 1. Add the AlertWise SDK -->
+    <script src="https://cdn.alertwise.net/alertwise/integrate/alert-wise.js" async></script>
+    <script type="text/javascript">
+        alertwise = window.Alertwise || [];
+        alertwise.push(["init", {
+            appId: "67a5e9d39f91a46a231bb738",
+            alertwiseApiUrl: "http://localhost:8080",
+            applicationServerPublicKey: "BBVqYFT5f4lIGhnY033h1a9udY2VoPJICnbwE7ElAlaBNr7Uom2X3_Xr5V9vXlle2bIViWbgd8wPezHsMdITKRY"
+        }]);
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        #eventLog {
+            height: 300px;
+            background-color: #212529;
+            color: #f8f9fa;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1><a href="/" class="text-dark text-decoration-none">AlertWise Web SDK Sample Demo</a></h1>
+        <p class="lead">A demonstration of the AlertWise Web SDK features using Bootstrap 5.</p>
+    </header>
+
+    <div class="row g-4">
+        <!-- Left Column -->
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Subscription Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Notification Permission:</span>
+                        <span id="permissionStatus" class="badge bg-secondary">Checking...</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span>Subscription Status:</span>
+                        <span id="subscriptionStatus" class="badge bg-secondary">Checking...</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Subscriber ID:</strong>
+                        <code id="subscriberId" class="d-block text-truncate">Not subscribed</code>
+                    </div>
+                    <div id="subscriptionActions" class="d-grid gap-2">
+                        <button class="btn btn-primary" onclick="alertwise.subscribe()">Subscribe</button>
+                        <button class="btn btn-danger" onclick="alertwise.unsubscribe()">Unsubscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Manage Segments</h5>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Segment ID</span>
+                        <input type="text" id="segmentId" class="form-control" placeholder="e.g., 'new-users'">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-outline-success" onclick="addSegment()">Add to Segment
+                        </button>
+                        <button type="button" class="btn btn-outline-warning" onclick="removeSegment()">Remove from
+                            Segment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Manage Tags</h5>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Key</span>
+                        <input type="text" id="tagKey" class="form-control" placeholder="e.g., 'level'">
+                        <span class="input-group-text">Value</span>
+                        <input type="text" id="tagValue" class="form-control" placeholder="e.g., '5'">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-outline-success" onclick="addTag()">Add/Update Tag</button>
+                        <button type="button" class="btn btn-outline-warning" onclick="removeTag()">Remove Tag</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Manage Subscriber Properties</h5>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Key</span>
+                        <input type="text" id="propKey" class="form-control" placeholder="e.g., 'firstName'">
+                        <span class="input-group-text">Value</span>
+                        <input type="text" id="propValue" class="form-control" placeholder="e.g., 'John'">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-outline-success" onclick="setProperty()">Set Property
+                        </button>
+                        <button type="button" class="btn btn-outline-warning" onclick="removeProperty()">Remove
+                            Property
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Event Log</h5>
+                </div>
+                <div class="card-body">
+                    <div id="eventLog" class="form-control" readonly></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 3. Initialize the SDK
+    window.alertwise = window.alertwise || [];
+    alertwise.push(['init', {
+        // IMPORTANT: Replace with your actual App ID
+        appId: 'YOUR_APP_ID'
+    }]);
+
+    const permissionStatusEl = document.getElementById('permissionStatus');
+    const subscriptionStatusEl = document.getElementById('subscriptionStatus');
+    const subscriberIdEl = document.getElementById('subscriberId');
+    const subscriptionActionsEl = document.getElementById('subscriptionActions');
+    const eventLogEl = document.getElementById('eventLog');
+
+    function logEvent(eventName, data) {
+        const now = new Date().toLocaleTimeString();
+        const dataString = data ? JSON.stringify(data) : '';
+        const logMessage = `[${now}] ${eventName} ${dataString}\n`;
+        console.log(eventName, data);
+        eventLogEl.textContent += logMessage;
+        eventLogEl.scrollTop = eventLogEl.scrollHeight; // Auto-scroll
+    }
+
+    function updatePermissionStatus(permission) {
+        permissionStatusEl.textContent = permission;
+        permissionStatusEl.className = 'badge'; // reset classes
+        if (permission === 'granted') {
+            permissionStatusEl.classList.add('bg-success');
+        } else if (permission === 'denied') {
+            permissionStatusEl.classList.add('bg-danger');
+        } else {
+            permissionStatusEl.classList.add('bg-warning', 'text-dark');
+        }
+    }
+
+    function updateSubscriptionStatus(isSubscribed) {
+        subscriptionStatusEl.textContent = isSubscribed ? 'Subscribed' : 'Unsubscribed';
+        subscriptionStatusEl.className = `badge ${isSubscribed ? 'bg-success' : 'bg-danger'}`;
+        subscriptionActionsEl.querySelector('.btn-primary').style.display = isSubscribed ? 'none' : 'block';
+        subscriptionActionsEl.querySelector('.btn-danger').style.display = isSubscribed ? 'block' : 'none';
+    }
+
+    function updateSubscriberId(id) {
+        subscriberIdEl.textContent = id || 'Not subscribed';
+    }
+
+    function addSegment() {
+        const segmentId = document.getElementById('segmentId').value;
+        if (!segmentId) {
+            alert('Please enter a Segment ID.');
+            return;
+        }
+        alertwise.addSegment(segmentId);
+        logEvent('Attempting to add to segment', {segmentId});
+    }
+
+    function removeSegment() {
+        const segmentId = document.getElementById('segmentId').value;
+        if (!segmentId) {
+            alert('Please enter a Segment ID.');
+            return;
+        }
+        alertwise.removeSegment(segmentId);
+        logEvent('Attempting to remove from segment', {segmentId});
+    }
+
+    function addTag() {
+        const key = document.getElementById('tagKey').value;
+        const value = document.getElementById('tagValue').value;
+        if (!key || !value) {
+            alert('Please enter both a tag key and value.');
+            return;
+        }
+        alertwise.addTag(key, value);
+        logEvent('Attempting to add tag', {key, value});
+    }
+
+    function removeTag() {
+        const key = document.getElementById('tagKey').value;
+        if (!key) {
+            alert('Please enter a tag key to remove.');
+            return;
+        }
+        alertwise.removeTag(key);
+        logEvent('Attempting to remove tag', {key});
+    }
+
+    function setProperty() {
+        const key = document.getElementById('propKey').value;
+        const value = document.getElementById('propValue').value;
+        if (!key || !value) {
+            alert('Please enter both a property key and value.');
+            return;
+        }
+        alertwise.setSubscriberProperty(key, value);
+        logEvent('Attempting to set property', {key, value});
+    }
+
+    function removeProperty() {
+        const key = document.getElementById('propKey').value;
+        if (!key) {
+            alert('Please enter a property key to remove.');
+            return;
+        }
+        alertwise.removeSubscriberProperty(key);
+        logEvent('Attempting to remove property', {key});
+    }
+
+    // Use the alertwise.push queue to run code after the SDK is ready
+    alertwise.push(function () {
+        logEvent('AlertWise.onSDKReady');
+
+        // Initial status check
+        alertwise.getPermission().then(updatePermissionStatus);
+        alertwise.getSubscriberId().then(id => {
+            updateSubscriptionStatus(!!id);
+            updateSubscriberId(id);
+        });
+    });
+
+    // --- Event Listeners ---
+
+    window.addEventListener('AlertWise.onSubscribe', function (event) {
+        logEvent('AlertWise.onSubscribe', event.detail);
+        const subscriberId = event.detail.subscriber.id;
+        updateSubscriptionStatus(true);
+        updateSubscriberId(subscriberId);
+        alertwise.getPermission().then(updatePermissionStatus);
+    });
+
+    window.addEventListener('AlertWise.onUnsubscribe', function () {
+        logEvent('AlertWise.onUnsubscribe');
+        updateSubscriptionStatus(false);
+        updateSubscriberId(null);
+    });
+
+    window.addEventListener('AlertWise.onPermissionGranted', function (event) {
+        logEvent('AlertWise.onPermissionGranted', event.detail);
+        updatePermissionStatus('granted');
+    });
+
+    window.addEventListener('AlertWise.onPermissionDenied', function (event) {
+        logEvent('AlertWise.onPermissionDenied', event.detail);
+        updatePermissionStatus('denied');
+    });
+
+    window.addEventListener('AlertWise.onSDKError', function (event) {
+        logEvent('AlertWise.onSDKError', event.detail);
+    });
+
+    window.addEventListener('AlertWise.onNotificationClick', (e) => logEvent('AlertWise.onNotificationClick', e.detail));
+    window.addEventListener('AlertWise.onNotificationDisplayed', (e) => logEvent('AlertWise.onNotificationDisplayed', e.detail));
+    window.addEventListener('AlertWise.onNotificationClose', (e) => logEvent('AlertWise.onNotificationClose', e.detail));
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
