@@ -8,7 +8,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- 1. Add the AlertWise SDK -->
-    <script src="https://cdn.alertwise.net/68c2e6a45f452e0690267179/integrate/alert-wise.js"></script>
+    <script src="https://d1kp3btf39ysac.cloudfront.net/alertwise/integrate/alert-wise.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
     <style>
         body {
@@ -23,8 +23,9 @@
             font-family: monospace;
             font-size: 0.875rem;
         }
+
         .code-viewer {
-            border-top: 1px solid rgba(0,0,0,.175);
+            border-top: 1px solid rgba(0, 0, 0, .175);
             border-bottom-left-radius: var(--bs-card-border-radius);
             border-bottom-right-radius: var(--bs-card-border-radius);
             margin: 0;
@@ -41,7 +42,7 @@
 
     <div class="row g-4">
         <!-- Left Column -->
-        <div class="col-lg-6">
+        <div class="col-lg-6" style="position: relative; z-index: 2;">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="mb-0">Subscription Status</h5>
@@ -65,7 +66,8 @@
                     </div>
                 </div>
                 <div class="card-footer bg-light">
-                     <a class="icon-link" data-bs-toggle="collapse" href="#subscriptionCodeCollapse" role="button" aria-expanded="false" aria-controls="subscriptionCodeCollapse">
+                    <a class="icon-link" data-bs-toggle="collapse" href="#subscriptionCodeCollapse" role="button"
+                       aria-expanded="false" aria-controls="subscriptionCodeCollapse">
                         <i class="bi bi-code-slash"></i>
                         View Code
                     </a>
@@ -101,7 +103,8 @@ alertwise.getSubscriberId().then(id => console.log(id));
                     </div>
                 </div>
                 <div class="card-footer bg-light">
-                     <a class="icon-link" data-bs-toggle="collapse" href="#segmentCodeCollapse" role="button" aria-expanded="false" aria-controls="segmentCodeCollapse">
+                    <a class="icon-link" data-bs-toggle="collapse" href="#segmentCodeCollapse" role="button"
+                       aria-expanded="false" aria-controls="segmentCodeCollapse">
                         <i class="bi bi-code-slash"></i>
                         View Code
                     </a>
@@ -135,12 +138,13 @@ alertwise.removeSegment(segmentId);
                     </div>
                 </div>
                 <div class="card-footer bg-light">
-                     <a class="icon-link" data-bs-toggle="collapse" href="#tagCodeCollapse" role="button" aria-expanded="false" aria-controls="tagCodeCollapse">
+                    <a class="icon-link" data-bs-toggle="collapse" href="#tagCodeCollapse" role="button"
+                       aria-expanded="false" aria-controls="tagCodeCollapse">
                         <i class="bi bi-code-slash"></i>
                         View Code
                     </a>
                 </div>
-                 <div class="collapse" id="tagCodeCollapse">
+                <div class="collapse" id="tagCodeCollapse">
                     <pre class="code-viewer bg-dark text-light mb-0"><code>// Add/Update a Tag
 alertwise.addTag('plan', 'premium');
 
@@ -173,7 +177,8 @@ alertwise.removeTag('plan');
                     </div>
                 </div>
                 <div class="card-footer bg-light">
-                     <a class="icon-link" data-bs-toggle="collapse" href="#propertyCodeCollapse" role="button" aria-expanded="false" aria-controls="propertyCodeCollapse">
+                    <a class="icon-link" data-bs-toggle="collapse" href="#propertyCodeCollapse" role="button"
+                       aria-expanded="false" aria-controls="propertyCodeCollapse">
                         <i class="bi bi-code-slash"></i>
                         View Code
                     </a>
