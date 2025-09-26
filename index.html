@@ -5,15 +5,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon"/>
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- 1. Add the AlertWise SDK -->
+
     <script src="https://d1kp3btf39ysac.cloudfront.net/alertwise/integrate/alert-wise.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=cyrillic" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --bs-primary: #0161ef;
+            --bs-primary-rgb: 86, 50, 232;
+            --bs-link-color: #5632E8;
+            --bs-link-hover-color: #4528b9;
+        }
+
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'ui-sans-serif', 'sans-serif', 'Manrope', '-apple-system';
             background-color: #f8f9fa;
+        }
+
+        .navbar {
+            border-bottom: 1px solid #e9ecef;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .navbar-brand img {
+            max-height: 35px;
+        }
+
+        .nav-link {
+            font-weight: 700;
+        }
+
+        .btn-outline-primary {
+            --bs-btn-border-color: #5632E8;
+            --bs-btn-hover-bg: #5632E8;
+            --bs-btn-hover-border-color: #5632E8;
+            --bs-btn-active-bg: #4528b9;
+            --bs-btn-active-border-color: #4528b9;
+        }
+
+        .card {
+            border: 1px solid #e9ecef;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .main-header {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .main-header h1 {
+            font-weight: 800;
         }
 
         #eventLog {
@@ -31,18 +83,93 @@
             margin: 0;
             padding: 1rem;
         }
+
+        .site-footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding-top: 4rem;
+            padding-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .site-footer .footer-logo {
+            max-height: 40px;
+            margin-bottom: 1.5rem;
+        }
+
+        .site-footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            color: #fff;
+        }
+
+        .site-footer .nav-link {
+            padding: 0.25rem 0;
+        }
+
+        .site-footer h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .site-footer .social-icons a {
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            border-top: 1px solid #343a40;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            color: #adb5bd;
+        }
+
     </style>
 </head>
 <body>
-<div class="container py-5">
-    <header class="text-center mb-5">
-        <h1><a href="/" class="text-dark text-decoration-none">AlertWise Web SDK Sample Demo</a></h1>
-        <p class="lead">A demonstration of the AlertWise Web SDK features with code examples.</p>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://alertwise.net/">
+            <img src="https://cdn.alertwise.net/alertwise/img/alertwise-logo.svg" alt="AlertWise Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" target="_blank" href="https://alertwise.net/">Platform</a></li>
+                <li class="nav-item"><a class="nav-link" target="_blank"
+                                        href="https://alertwise.net/pricing">Pricing</a></li>
+                <li class="nav-item"><a class="nav-link" target="_blank" href="https://documentation.alertwise.net/">Documentation</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" target="_blank" href="https://blog.alertwise.net/">Blog</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a target="_blank" href="https://app.alertwise.net/#/login" class="btn btn-outline-primary me-2 rounded-0">
+                    <i class="bi bi-person"></i> Login
+                </a>
+                <a target="_blank" href="https://app.alertwise.net/#/signup" class="btn btn-primary rounded-0">
+                    Get Started <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <header class="text-center main-header">
+        <h1>AlertWise Web SDK Sample Demo</h1>
+        <p class="lead text-muted">A demonstration of the AlertWise Web SDK features with code examples.</p>
     </header>
 
-    <div class="row g-4">
-        <!-- Left Column -->
-        <div class="col-lg-6" style="position: relative; z-index: 2;">
+    <main class="row g-4 pb-5">
+        <div class="col-lg-6">
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="mb-0">Subscription Status</h5>
@@ -197,19 +324,78 @@ alertwise.removeSubscriberProperty('firstName');
             </div>
         </div>
 
-        <!-- Right Column -->
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Event Log</h5>
                 </div>
                 <div class="card-body">
-                    <div id="eventLog" class="form-control" readonly></div>
+                    <div id="eventLog" class="form-control" readonly style="overflow-y: auto; scrollbar-width: thin;"></div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </div>
+
+<footer class="site-footer" style="padding-top: 1rem;padding-bottom: 1rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <a href="https://alertwise.net/">
+                    <img src="https://cdn.alertwise.net/alertwise/img/alertwise-logo-dark.svg" alt="AlertWise Logo"
+                         class="footer-logo">
+                </a>
+                <p class="pe-4 small">AlertWise empowers businesses with powerful web push notifications for both
+                    desktop and mobile, helping drive traffic, increase revenue, and boost customer engagement. With
+                    seamless integration, real-time targeting, 24/7 expert support, and an intuitive dashboard, our
+                    scalable platform simplifies campaign management and delivers actionable insights to maximize growth
+                    and retention.</p>
+                <div class="social-icons d-flex gap-2">
+                    <a href="https://x.com/AlertWisePush"><i class="fs-6 bi bi-twitter-x"></i></a>
+                    <a href="https://www.youtube.com/@Alertwisenotification"><i class="fs-6 bi bi-youtube"></i></a>
+                    <a href="https://www.instagram.com/alertwisepushnotifications"><i class="fs-6 bi bi-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=61574061916938"><i class="fs-6 bi bi-facebook"></i></a>
+                    <a href="#"><i class="fs-6 bi bi-linkedin"></i></a>
+                    <a href="https://github.com/alertwise-admin"><i class="fs-6 bi bi-github"></i></a>
+                    <a href="https://wa.me/message/DZWXUJHIJ5ABH1"><i class="fs-6 bi bi-whatsapp"></i></a>
+                    <a href="https://t.me/AlertWise"><i class="fs-6 bi bi-telegram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 mb-4 mb-lg-0">
+                <h5>Product</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/features" class="nav-link">Features</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/pricing" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/testimonials" class="nav-link">Testimonials</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://documentation.alertwise.net/" class="nav-link">Documentation</a></li>
+
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 col-6 mb-4 mb-lg-0">
+                <h5>Resources</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a target="_blank" href="https://www.youtube.com/@Alertwisenotification" class="nav-link">Video Tutorials</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://blog.alertwise.net/questions/" class="nav-link">Community</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://blog.alertwise.net/" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://documentation.alertwise.net/faqs/faqs/" class="nav-link">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 col-12">
+                <h5>Company</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/about" class="nav-link">About Us</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://alertwise.net/company" class="nav-link">Company</a></li>
+                    <li class="nav-item"><a target="_blank" href="https://blog.alertwise.net/glossary/" class="nav-link">Glossary</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright text-center" style="margin-top: 1rem">
+            &copy; 2025 AlertWise. All rights reserved.
+        </div>
+    </div>
+</footer>
+
 
 <script>
     // 3. Initialize the SDK
@@ -366,8 +552,6 @@ alertwise.removeSubscriberProperty('firstName');
     window.addEventListener('AlertWise.onNotificationClose', (e) => logEvent('AlertWise.onNotificationClose', e.detail));
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

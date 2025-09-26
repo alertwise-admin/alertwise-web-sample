@@ -1,2 +1,4 @@
-.idea
 alertwise-web-sample.iml
+.rsync-exclude
+.idea
+sync.sh
