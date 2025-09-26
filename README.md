@@ -61,6 +61,31 @@ Here are a few simple ways to start a local server:
 2.  Open your browser and navigate to `http://localhost:8000` (or the port your server is running on).
 3.  Use the UI to interact with the different features of the AlertWise SDK and see the event logs in real-time.
 
+## Useful Links
+
+Here are some helpful links to learn more about AlertWise and connect with our community:
+
+### Product & Platform
+*   [AlertWise Platform](https://alertwise.net/)
+*   [Features](https://alertwise.net/features)
+*   [Pricing](https://alertwise.net/pricing)
+*   [Testimonials](https://alertwise.net/testimonials)
+*   [Login to your Account](https://app.alertwise.net/#/login)
+*   [Get Started for Free](https://app.alertwise.net/#/signup)
+
+### Documentation & Resources
+*   [Documentation](https://documentation.alertwise.net/)
+*   [Blog](https://blog.alertwise.net/)
+*   [Community Q&A](https://blog.alertwise.net/questions/)
+*   [Video Tutorials](https://www.youtube.com/@Alertwisenotification)
+*   [FAQs](https://documentation.alertwise.net/faqs/faqs/)
+*   [Glossary](https://blog.alertwise.net/glossary/)
+
+### Connect with Us
+*   [GitHub](https://github.com/alertwise-admin)
+*   [Twitter/X](https://x.com/AlertWisePush)
+*   [YouTube](https://www.youtube.com/@Alertwisenotification)
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
